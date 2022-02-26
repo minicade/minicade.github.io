@@ -9,6 +9,7 @@
   --theme-700: 26 26 26;
   --theme-800: 18 18 18;
   --theme-900: 4 4 4;
+  --text: 255 255 255;
 }
 
 .light {
@@ -22,6 +23,7 @@
   --theme-700: 124 124 124;
   --theme-800: 120 120 120;
   --theme-900: 113 113 113;
+  --text: 0 0 0;
 }
 
 :root {
@@ -35,9 +37,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  background-color: rgb(var(--theme-500));
+  color: rgb(var(--text));
 }

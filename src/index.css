@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .dark {
   --theme-50: 105 105 105;
   --theme-100: 84 84 84;
@@ -28,6 +32,8 @@
 
 :root {
   --branding: 92 97 149;
+  --branding-dark: 82 87 139;
+  --branding-light: 102 107 159;
 }
 
 body {
@@ -39,4 +45,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(var(--theme-500));
   color: rgb(var(--text));
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--branding));
 }

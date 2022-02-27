@@ -8,7 +8,7 @@ function withOpacityValue(variable) {
 }
 
 module.exports = {
-  content: [],
+  content: ["./src/*/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -25,6 +25,8 @@ module.exports = {
           900: withOpacityValue("--theme-900"),
         },
         branding: withOpacityValue("--branding"),
+        "branding-light": withOpacityValue("--branding-light"),
+        "branding-dark": withOpacityValue("--branding-dark"),
       },
     },
     plugins: [],

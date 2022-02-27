@@ -1,0 +1,15 @@
+{
+  "short_name": "MiniCade",
+  "name": "MiniCade Online",
+  "icons": [
+    {
+      "src": "./assets/branding_assets/Minicade@16x.png",
+      "sizes": "16x16 32x32 48x48 64x64 128x128 256x256 512x512 1024x1024 2048x2048 4096x4096",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

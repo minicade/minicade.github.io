@@ -91,7 +91,7 @@
     "yaml": "^1.10.2"
   },
   "scripts": {
-    "start": "concurrently \"tailwind build --config ./tailwind.config.js --watch --input ./src/index.css --output ./src/build.css\" \"cd ./src/ && lite-server\"",
+    "start": "tailwind build --config ./tailwind.config.js --watch --input ./src/index.css --output ./src/build.css",
     "compile": "tsc",
     "publish": "node ./pushtoghpages.js"
   },

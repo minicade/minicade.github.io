@@ -12,7 +12,6 @@ export default class Component extends React.Component {
           alt="minicade logo"
           className={`h-full absolute left-1 top-0`}
         />
-        asdfgh
         <div className={`right-1 absolute`}>
           <img src={require("./../assets/FlatIcons/interface-user-avatar-1.svg").default} alt="profile" />
         </div>

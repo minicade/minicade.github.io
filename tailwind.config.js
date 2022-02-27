@@ -8,7 +8,7 @@ function withOpacityValue(variable) {
 }
 
 module.exports = {
-  content: ["./src/*/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.html"],
   theme: {
     extend: {
       colors: {

@@ -8,7 +8,7 @@ export default class Component extends React.Component {
       <div>
         <NavBar />
         <div
-          className={`h-[calc(100vh-4.5rem)] bg-[url("./assets/MiniCade_Branding_Background.svg")] w-full flex items-center justify-center flex-col bg-fixed bg-cover`}>
+          className={`h-[calc(100vh-3.5rem)] bg-[url("./assets/MiniCade_Branding_Background.svg")] w-full flex items-center justify-center flex-col bg-fixed bg-cover`}>
           <div className={`mb-4 rounded-xl bg-theme-500 bg-opacity-80 backdrop-blur-sm`}>
             <h1 className={`text-6xl p-6`}>Welcome to MiniCade</h1>
           </div>

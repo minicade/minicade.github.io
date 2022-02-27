@@ -28,6 +28,9 @@ module.exports = {
         "branding-light": withOpacityValue("--branding-light"),
         "branding-dark": withOpacityValue("--branding-dark"),
       },
+      fontFamily: {
+        "encodesans": "Encode Sans",
+      }
     },
     plugins: [],
   },

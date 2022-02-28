@@ -29,7 +29,7 @@ class Game {
     this.applePos = [];
     if (firstRun === true) {
       this.render();
-      setInterval(this.handleSubTick.bind(this), 100);
+      setInterval(this.handleSubTick.bind(this), 10);
     }
   }
   handleSubTick() {

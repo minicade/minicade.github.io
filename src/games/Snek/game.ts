@@ -6,36 +6,41 @@ const STARTPOS = { x: -4, y: 0 };
 const STARTAPPLEPOS = { x: -3, y: 0 };
 
 class Game {
-  gridScale: number;
-  x: number;
-  y: number;
-  trail: Array<{ x: number; y: number }>;
-  direction: string;
-  gridSize: number;
-  score: number;
-  applePos: Array<{ x: number; y: number }>;
-  constructor() {
+  gridScale!: number;
+  x!: number;
+  y!: number;
+  trail!: Array<{ x: number; y: number }>;
+  direction: string = "right";
+  gridSize!: number;
+  score: number = 0;
+  applePos!: Array<{ x: number; y: number }>;
+  currentSubTick: number = 0;
+  constructor(firstRun: boolean) {
+    this.start(firstRun);
+  }
+  start(firstRun: boolean) {
     this.x = 0;
     this.y = 0;
     this.trail = [];
     this.direction = "right";
-    this.gridSize = 20;
+    this.gridSize = 50;
     this.gridScale = canvas.width / this.gridSize;
     this.score = 0;
     this.applePos = [];
-    this.render();
-    setInterval(this.tick.bind(this), 250);
+    if (firstRun === true) {
+      this.render();
+      setInterval(this.handleSubTick.bind(this), 100);
+    }
+  }
+  handleSubTick() {
+    this.currentSubTick++;
+    if (this.currentSubTick === 10) {
+      this.currentSubTick = 0;
+      this.tick();
+    }
   }
   reset() {
-    this.x = 0;
-    this.y = 0;
-    this.trail = [];
-    this.direction = "right";
-    this.gridSize = 20;
-    this.gridScale = canvas.width / this.gridSize;
-    this.score = 0;
-    this.applePos = [];
-    this.render();
+    this.start(false);
   }
   isSnakeOutOfGameWalls() {
     if (
@@ -50,7 +55,7 @@ class Game {
   }
   render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "#008800";
     ctx.fillRect(
       0,
       0,
@@ -80,12 +85,72 @@ class Game {
     }
     // draw snake head
     ctx.fillStyle = "black";
-    ctx.fillRect(
-      this.x * this.gridScale,
-      this.y * this.gridScale,
-      this.gridScale,
-      this.gridScale
-    );
+    switch (this.direction) {
+      case "right":
+        ctx.fillRect(
+          this.x * this.gridScale + (this.currentSubTick * this.gridScale) / 10,
+          this.y * this.gridScale,
+          this.gridScale,
+          this.gridScale
+        );
+        ctx.fillRect(
+          this.x * this.gridScale +
+            (this.currentSubTick * this.gridScale) / 10 +
+            this.gridScale / 2,
+          this.y * this.gridScale + this.gridScale / 2 - this.gridScale / 20,
+          this.gridScale,
+          this.gridScale / 10
+        );
+        break;
+      case "left":
+        ctx.fillRect(
+          this.x * this.gridScale - (this.currentSubTick * this.gridScale) / 10,
+          this.y * this.gridScale,
+          this.gridScale,
+          this.gridScale
+        );
+        ctx.fillRect(
+          this.x * this.gridScale -
+            (this.currentSubTick * this.gridScale) / 10 -
+            this.gridScale / 2,
+          this.y * this.gridScale + this.gridScale / 2 - this.gridScale / 20,
+          this.gridScale,
+          this.gridScale / 10
+        );
+        break;
+      case "up":
+        ctx.fillRect(
+          this.x * this.gridScale,
+          this.y * this.gridScale - (this.currentSubTick * this.gridScale) / 10,
+          this.gridScale,
+          this.gridScale
+        );
+        ctx.fillRect(
+          this.x * this.gridScale + this.gridScale / 2 - this.gridScale / 20,
+          this.y * this.gridScale -
+            (this.currentSubTick * this.gridScale) / 10 -
+            this.gridScale / 2,
+          this.gridScale / 10,
+          this.gridScale
+        );
+        break;
+      case "down":
+        ctx.fillRect(
+          this.x * this.gridScale,
+          this.y * this.gridScale + (this.currentSubTick * this.gridScale) / 10,
+          this.gridScale,
+          this.gridScale
+        );
+        ctx.fillRect(
+          this.x * this.gridScale + this.gridScale / 2 - this.gridScale / 20,
+          this.y * this.gridScale +
+            (this.currentSubTick * this.gridScale) / 10 +
+            this.gridScale / 2,
+          this.gridScale / 10,
+          this.gridScale
+        );
+        break;
+    }
 
     // draw apple
     ctx.fillStyle = "yellow";
@@ -119,10 +184,17 @@ class Game {
     if (this.isSnakeOutOfGameWalls()) {
       this.reset();
     }
+    // check if snake hit itself
+    for (let i = 0; i < this.trail.length; i++) {
+      // if snake head hits a part of its body
+      if (this.trail[i].x === this.x && this.trail[i].y === this.y) {
+        this.reset();
+      }
+    }
   }
 }
 
-let game = new Game();
+let game = new Game(true);
 
 window.addEventListener("keydown", e => {
   switch (e.key) {

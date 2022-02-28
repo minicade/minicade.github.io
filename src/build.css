@@ -522,31 +522,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: center;
 }
 
-.rounded-xl{
-  border-radius: 0.75rem;
-}
-
-.rounded-2xl{
-  border-radius: 1rem;
-}
-
-.border-2{
-  border-width: 2px;
-}
-
-.border-4{
-  border-width: 4px;
-}
-
-.border-branding-light{
-  --tw-border-opacity: 1;
-  border-color: rgb(var(--branding-light) / var(--tw-border-opacity));
-}
-
-.border-opacity-0{
-  --tw-border-opacity: 0;
-}
-
 .bg-theme-500{
   --tw-bg-opacity: 1;
   background-color: rgb(var(--theme-500) / var(--tw-bg-opacity));
@@ -555,35 +530,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-theme-600{
   --tw-bg-opacity: 1;
   background-color: rgb(var(--theme-600) / var(--tw-bg-opacity));
-}
-
-.bg-branding{
-  --tw-bg-opacity: 1;
-  background-color: rgb(var(--branding) / var(--tw-bg-opacity));
-}
-
-.p-2{
-  padding: 0.5rem;
-}
-
-.p-4{
-  padding: 1rem;
-}
-
-.pl-4{
-  padding-left: 1rem;
-}
-
-.pr-4{
-  padding-right: 1rem;
-}
-
-.pl-8{
-  padding-left: 2rem;
-}
-
-.pr-8{
-  padding-right: 2rem;
 }
 
 .font-encodesans{
@@ -602,14 +548,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-\[\#EF4444\]{
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-
-.transition-colors{
-  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 }
 
 .dark {
@@ -669,26 +607,7 @@ body {
   background-color: rgb(var(--branding));
 }
 
-.hover\:border-branding:hover{
-  --tw-border-opacity: 1;
-  border-color: rgb(var(--branding) / var(--tw-border-opacity));
-}
-
-.hover\:border-opacity-100:hover{
-  --tw-border-opacity: 1;
-}
-
-.hover\:bg-branding-light:hover{
-  --tw-bg-opacity: 1;
-  background-color: rgb(var(--branding-light) / var(--tw-bg-opacity));
-}
-
 .hover\:underline:hover{
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
-}
-
-.active\:bg-branding-dark:active{
-  --tw-bg-opacity: 1;
-  background-color: rgb(var(--branding-dark) / var(--tw-bg-opacity));
 }

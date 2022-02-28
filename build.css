@@ -502,30 +502,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 3.5rem;
 }
 
-.h-\[\]{
-  height: ;
-}
-
-.h-\[80\%\]{
-  height: 80%;
-}
-
-.h-\[80vh\]{
-  height: 80vh;
-}
-
-.h-full{
-  height: 100%;
-}
-
-.h-\[100vh\]{
-  height: 100vh;
-}
-
-.h-\[calc\(100vh-7rem\)\]{
-  height: calc(100vh - 7rem);
-}
-
 .h-\[calc\(100vh-3\.5rem\)\]{
   height: calc(100vh - 3.5rem);
 }
@@ -534,24 +510,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 100%;
 }
 
-.w-\[\]{
-  width: ;
-}
-
-.w-\[90\%\]{
-  width: 90%;
-}
-
-.w-\[90vh\]{
-  width: 90vh;
-}
-
-.w-\[90vw\]{
-  width: 90vw;
-}
-
-.w-\[100vw\]{
-  width: 100vw;
+.flex-col{
+  flex-direction: column;
 }
 
 .items-center{

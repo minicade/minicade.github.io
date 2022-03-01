@@ -2,8 +2,8 @@ const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
 const START_LENGTH = 5;
-const STARTPOS = { x: -4, y: 0 };
-const STARTAPPLEPOS = { x: -3, y: 0 };
+const STARTPOS = { x: 4, y: 8 };
+const STARTAPPLEPOS = { x: 3, y: 0 };
 
 class Game {
   gridScale!: number;
@@ -19,17 +19,19 @@ class Game {
     this.start(firstRun);
   }
   start(firstRun: boolean) {
-    this.x = 0;
-    this.y = 0;
     this.trail = [];
     this.direction = "right";
-    this.gridSize = 50;
+    this.gridSize = 16;
     this.gridScale = canvas.width / this.gridSize;
     this.score = 0;
     this.applePos = [];
+    this.x = STARTPOS.x;
+    this.y = STARTPOS.y;
+    this.applePos.push(STARTAPPLEPOS);
+    console.log(this);
     if (firstRun === true) {
       this.render();
-      setInterval(this.handleSubTick.bind(this), 10);
+      setInterval(this.handleSubTick.bind(this), 50);
     }
   }
   handleSubTick() {
@@ -83,6 +85,12 @@ class Game {
         this.gridScale
       );
     }
+    ctx.fillRect(
+      this.x * this.gridScale,
+      this.y * this.gridScale,
+      this.gridScale,
+      this.gridScale
+    );
     // draw snake head
     ctx.fillStyle = "black";
     switch (this.direction) {
@@ -165,6 +173,17 @@ class Game {
     requestAnimationFrame(this.render.bind(this));
   }
   tick() {
+    this.applePos.forEach(apple => {
+      if (this.x === apple.x && this.y === apple.y) {
+        // remove apple
+        this.applePos.splice(this.applePos.indexOf(apple), 1);
+        this.score++;
+        this.applePos.push({
+          x: Math.floor(Math.random() * this.gridSize),
+          y: Math.floor(Math.random() * this.gridSize),
+        });
+      }
+    });
     switch (this.direction) {
       case "right":
         this.x++;

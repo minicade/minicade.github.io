@@ -24,7 +24,7 @@ class Game {
         console.log(this);
         if (firstRun === true) {
             this.render();
-            setInterval(this.handleSubTick.bind(this), 50);
+            setInterval(this.handleSubTick.bind(this), 10);
         }
     }
     handleSubTick() {
@@ -66,7 +66,7 @@ class Game {
         for (let i = 0; i < this.trail.length; i++) {
             ctx.fillRect(this.trail[i].x * this.gridScale, this.trail[i].y * this.gridScale, this.gridScale, this.gridScale);
         }
-        ctx.fillRect(this.x * this.gridScale, this.y * this.gridScale, this.gridScale, this.gridScale);
+        // ctx.fillRect(this.x * this.gridScale, this.y * this.gridScale, this.gridScale, this.gridScale);
         // draw snake head
         ctx.fillStyle = "black";
         switch (this.direction) {

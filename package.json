@@ -92,8 +92,7 @@
   },
   "scripts": {
     "start": "tailwind build --config ./tailwind.config.js --watch --input ./src/index.css --output ./src/build.css",
-    "compile": "tsc",
-    "publish": "node ./pushtoghpages.js"
+    "compile": "tsc"
   },
   "repository": {
     "type": "git",

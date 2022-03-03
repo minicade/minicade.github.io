@@ -1,3 +1,4 @@
 export const GAMES = [
-    "Snek"
+    "Snek",
+    "expanseTest"
 ];

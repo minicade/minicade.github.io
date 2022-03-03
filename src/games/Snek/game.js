@@ -1,4 +1,3 @@
-"use strict";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const START_LENGTH = 5;
@@ -315,3 +314,4 @@ window.addEventListener("keydown", e => {
             break;
     }
 });
+export {};

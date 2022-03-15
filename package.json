@@ -54,7 +54,6 @@
     "json-parse-even-better-errors": "^2.3.1",
     "lilconfig": "^2.0.4",
     "lines-and-columns": "^1.2.4",
-    "lite-server": "^2.6.1",
     "liteserver": "^0.3.0",
     "merge2": "^1.4.1",
     "micromatch": "^4.0.4",

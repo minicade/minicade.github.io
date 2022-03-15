@@ -1,171 +1,115 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+console.log("a");
 const START_LENGTH = 5;
-const STARTPOS = { x: 4, y: 8 };
-const STARTAPPLEPOS = { x: 12, y: 8 };
-class Game {
-    constructor() {
-        this.startGame();
-    }
-    assignGameListeners() {
-        // add event listeners
-        document.addEventListener("keydown", (e) => {
-            this.snake.keyPress(e.key);
-        });
-        setInterval(() => {
-            this.tick();
-        }, 10);
-    }
-    startGame() {
-        this.tileScale = canvas.width / 25;
-        this.snake = new Snake(this.tileScale);
-        this.assignGameListeners();
-    }
-    tick() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        this.snake.move();
-        this.snake.render();
-    }
+const START_POS = { x: 4, y: 8 };
+const START_APPLE_POS = { x: 12, y: 8 };
+const GRID_SCALE = canvas.width / 20;
+window.setInterval(() => {
+    gameTick();
+}, 1000 / 60);
+let Listeners = [];
+let Player = {
+    x: START_POS.x,
+    y: START_POS.y,
+    length: START_LENGTH,
+    direction: "right",
+    tail: [],
+    score: 0,
+};
+let Fruit = [
+    {
+        x: 10,
+        y: 10,
+        type: "apple",
+    },
+];
+function generateFruit() {
+    let fruit = {
+        x: Math.floor(Math.random() * 20),
+        y: Math.floor(Math.random() * 20),
+        type: "apple",
+    };
+    Fruit.push(fruit);
 }
-class Snake {
-    constructor(tileScale) {
-        this.trail = [];
-        this.x = STARTPOS.x;
-        this.y = STARTPOS.y;
-        this.tileScale = tileScale;
-        this.direction = "right";
-    }
-    keyPress(key) {
-        switch (key) {
-            case "ArrowUp":
-                this.direction = "up";
-                break;
-            case "ArrowDown":
-                this.direction = "down";
-                break;
-            case "ArrowLeft":
-                this.direction = "left";
-                break;
-            case "ArrowRight":
-                this.direction = "right";
-                break;
-            default:
-                break;
-        }
-    }
-    render() {
-        // draw snake head
-        ctx.fillStyle = "darkgreen";
-        ctx.fillRect(this.x * this.tileScale, this.y * this.tileScale, this.tileScale, this.tileScale);
-        // draw snake trail
-        ctx.fillStyle = "green";
-        this.trail.forEach(pos => {
-            ctx.fillRect(pos.x * this.tileScale, pos.y * this.tileScale, this.tileScale, this.tileScale);
-        });
-        // draw a grid based on the tile scale
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 1;
-        for (let i = 0; i < canvas.width; i += this.tileScale) {
-            ctx.moveTo(i, 0);
-            ctx.lineTo(i, canvas.height);
-        }
-        for (let i = 0; i < canvas.height; i += this.tileScale) {
-            ctx.moveTo(0, i);
-            ctx.lineTo(canvas.width, i);
-        }
-        ctx.stroke();
-    }
-    move() {
-        console.log(this);
-        // move snake
-        switch (this.direction) {
-            case "up":
-                this.y -= 0.1;
-                if (this.x > nearestMultiple(this.x, this.tileScale)) {
-                    if (this.x - nearestMultiple(this.x, this.tileScale) > 0.1) {
-                        this.x += 0.1;
-                    }
-                    else {
-                        this.x = nearestMultiple(this.x, this.tileScale);
-                    }
-                }
-                else if (this.x < nearestMultiple(this.x, this.tileScale)) {
-                    if (nearestMultiple(this.x, this.tileScale) - this.x > 0.1) {
-                        this.x -= 0.1;
-                    }
-                    else {
-                        this.x = nearestMultiple(this.x, this.tileScale);
-                    }
-                }
-                break;
-            case "down":
-                this.y += 0.1;
-                if (this.x > nearestMultiple(this.x, this.tileScale)) {
-                    if (this.x - nearestMultiple(this.x, this.tileScale) > 0.1) {
-                        this.x += 0.1;
-                    }
-                    else {
-                        this.x = nearestMultiple(this.x, this.tileScale);
-                    }
-                }
-                else if (this.x < nearestMultiple(this.x, this.tileScale)) {
-                    if (nearestMultiple(this.x, this.tileScale) - this.x > 0.1) {
-                        this.x -= 0.1;
-                    }
-                    else {
-                        this.x = nearestMultiple(this.x, this.tileScale);
-                    }
-                }
-                break;
-            case "left":
-                this.x -= 0.1;
-                if (this.y > nearestMultiple(this.y, this.tileScale)) {
-                    if (this.y - nearestMultiple(this.y, this.tileScale) > 0.1) {
-                        this.y += 0.1;
-                    }
-                    else {
-                        this.y = nearestMultiple(this.y, this.tileScale);
-                    }
-                }
-                else if (this.y < nearestMultiple(this.y, this.tileScale)) {
-                    if (nearestMultiple(this.y, this.tileScale) - this.y > 0.1) {
-                        this.y -= 0.1;
-                    }
-                    else {
-                        this.y = nearestMultiple(this.y, this.tileScale);
-                    }
-                }
-                break;
-            case "right":
-                this.x += 0.1;
-                if (this.y > nearestMultiple(this.y, this.tileScale)) {
-                    if (this.y - nearestMultiple(this.y, this.tileScale) > 0.1) {
-                        this.y += 0.1;
-                    }
-                    else {
-                        this.y = nearestMultiple(this.y, this.tileScale);
-                    }
-                }
-                else if (this.y < nearestMultiple(this.y, this.tileScale)) {
-                    if (nearestMultiple(this.y, this.tileScale) - this.y > 0.1) {
-                        this.y -= 0.1;
-                    }
-                    else {
-                        this.y = nearestMultiple(this.y, this.tileScale);
-                    }
-                }
-                break;
-            default:
-                break;
-        }
-        // add new head to trail
-        this.trail.push({ x: this.x, y: this.y });
-        // remove tail
-        this.trail.shift();
-    }
+function startGame() {
+    Listeners.map(listener => window.removeEventListener(listener.type, listener.listener));
+    Listeners = [];
+    generateFruit();
+    Player = {
+        x: START_POS.x,
+        y: START_POS.y,
+        length: START_LENGTH,
+        direction: "right",
+        tail: [],
+        score: 0,
+    };
+    Listeners.push({
+        type: "keydown",
+        listener: (e) => {
+            switch (e.key) {
+                case "ArrowUp" || "w":
+                    Player.direction = "up";
+                    break;
+                case "ArrowDown" || "s":
+                    Player.direction = "down";
+                    break;
+                case "ArrowLeft" || "a":
+                    Player.direction = "left";
+                    break;
+                case "ArrowRight" || "d":
+                    Player.direction = "right";
+                    break;
+            }
+        },
+    });
+    Listeners.map(listener => {
+        window.addEventListener(listener.type, listener.listener);
+    });
 }
-new Game();
-function nearestMultiple(input, multiple) {
-    return Math.ceil(input / multiple) * multiple;
+function gameTick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.fillText(`Score: ${Player.score}`, 10, 20);
+    ctx.fillText(`Length: ${Player.length}`, 10, 40);
+    Player.tail.map(pos => {
+        ctx.fillRect(pos.x * GRID_SCALE, pos.y * GRID_SCALE, GRID_SCALE, GRID_SCALE);
+    });
+    ctx.fillRect(Player.x * GRID_SCALE, Player.y * GRID_SCALE, GRID_SCALE, GRID_SCALE);
+    Fruit.map(fruit => {
+        ctx.fillStyle = "red";
+        ctx.fillRect(fruit.x * GRID_SCALE, fruit.y * GRID_SCALE, GRID_SCALE, GRID_SCALE);
+    });
+    if (Player.x === Fruit[0].x &&
+        Player.y === Fruit[0].y &&
+        Fruit[0].type === "apple") {
+        Player.score += 1;
+        Player.length += 1;
+        generateFruit();
+    }
+    switch (Player.direction) {
+        case "up":
+            Player.y -= 1;
+            break;
+        case "down":
+            Player.y += 1;
+            break;
+        case "left":
+            Player.x -= 1;
+            break;
+        case "right":
+            Player.x += 1;
+            break;
+    }
+    if (Player.x < 0 ||
+        Player.x > 19 ||
+        Player.y < 0 ||
+        Player.y > 19 ||
+        Player.tail.some(pos => pos.x === Player.x && pos.y === Player.y)) {
+        startGame();
+    }
 }
 export {};
